@@ -16,24 +16,26 @@ public class FarmHelp {
 
 	static MailUtility mailer = new MailUtility();
 
-	public static void sleep() {
+	public static void sleep() throws BotException {
 		int start = 500;
 		int end = 1000;
 		try {
 			if (d.findElementById("bot_check_image") != null) {
 				d.close();
-				mailer.sendMessage("Bot protection. Can't continue.");
+				try {
+					mailer.sendMessage("Bot protection. Can't continue.");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				b.delete(0, b.length());
-				System.exit(0);
+				throw new BotException();
 			}
 			long wait = (long) (start + (Math.random() * (end - start)));
 			Thread.sleep(wait);
 
-		} catch (NoSuchElementException e1) {
+		} catch (NoSuchElementException | InterruptedException e) {
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} 
 	}
 
 	public static void reset(int milliseconds) {
@@ -69,7 +71,7 @@ public class FarmHelp {
 	static int villCount = 0;
 	static ArrayList<Integer> vills_to_skip = new ArrayList<Integer>();
 
-	public static void doFarming() {
+	public static void doFarming() throws BotException {
 		if (vills_to_skip.contains(villCount)) {
 			b.append("Skipping village: " + villCount + "\n");
 			villCount += 1;
@@ -144,7 +146,7 @@ public class FarmHelp {
 		villCount += 1;
 	}
 
-	public static void execute(String username, String password, String world) {
+	public static void execute(String username, String password, String world) throws BotException {
 		d = new FirefoxDriver();
 		try {
 			d.get("http://tribalwars.net");
@@ -210,7 +212,9 @@ public class FarmHelp {
 
 			reset(900000);
 
-		} catch (Exception e) {
+		}catch (BotException b){
+			throw b;
+		}catch (Exception e) {
 			e.printStackTrace();
 			try {
 				d.close();
@@ -237,8 +241,26 @@ public class FarmHelp {
 		mailer.setup(gmail_address, gmail_password, authorized_sender);
 
 		while (true) {
-			execute(username, password, world);
+			try {
+				execute(username, password, world);
+			} catch (BotException e) {
+				return;
+			}
 		}
+	}
+	
+	public static void startHelper(String[] args) throws BotException{
+		String gmail_address = args[0];
+		String gmail_password = args[1];
+		String authorized_sender = args[2];
+		String username = args[3];
+		String password = args[4];
+		String world = args[5];
 
+		mailer.setup(gmail_address, gmail_password, authorized_sender);
+
+		while (true) {
+			execute(username, password, world);	
+		}
 	}
 }

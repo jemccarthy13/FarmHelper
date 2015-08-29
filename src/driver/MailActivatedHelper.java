@@ -26,7 +26,17 @@ public class MailActivatedHelper {
 		@Override
 		public void run() {
 			String[] args = { gmail_address, gmail_password, authorized_sender, username, password, world };
-			FarmHelp.main(args);
+			try {
+				FarmHelp.startHelper(args);
+			} catch (BotException e1) {
+				this.stop();
+
+				try {
+					mailer.sendMessage("Bot protection. Can't continue.");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
