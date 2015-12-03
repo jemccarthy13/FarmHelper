@@ -16,6 +16,9 @@ import javax.mail.Store;
 
 import org.openqa.selenium.remote.UnreachableBrowserException;
 
+/**
+ * A farm helper that reads email for commands.
+ */
 public class MailActivatedHelper {
 
 	static class FarmHelpServer extends Thread {
@@ -52,6 +55,11 @@ public class MailActivatedHelper {
 
 	static MailUtility mailer = new MailUtility();
 
+	/**
+	 * Get the most recent message from an inbox
+	 * @return Message most recent message
+	 * @throws Exception
+	 */
 	public static Message getMostRecentMessage() throws Exception {
 
 		Properties props = new Properties();
@@ -68,6 +76,10 @@ public class MailActivatedHelper {
 		return msg;
 	}
 
+    /**
+	 * Main entry point for mail server
+	 * @param args
+	 */
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 

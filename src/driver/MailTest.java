@@ -10,8 +10,15 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * Test mail functionality.
+ */
 public class MailTest {
 
+	/**
+	 * Main entry point for the test
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		String to = "6034258822@vtext.com";
 		String from = "jemccarthy13@gmail.com";

@@ -10,6 +10,9 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * Utility class to help with email.
+ */
 public class MailUtility {
 
 	static Session session;
@@ -18,6 +21,12 @@ public class MailUtility {
 	String to;
 	String from_password;
 
+	/**
+	 * Setup the email utility
+	 * @param from_addr
+	 * @param from_password
+	 * @param to
+	 */
 	public void setup(String from_addr, String from_password, String to) {
 		props = System.getProperties();
 		props.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -46,6 +55,11 @@ public class MailUtility {
 		});
 	}
 
+	/**
+	 * Send an email message
+	 * @param text - the body of the email
+	 * @throws Exception
+	 */
 	public void sendMessage(String text) throws Exception {
 		if (session == null) {
 			throw new Exception("Failed to initialize mail utility.");

@@ -9,6 +9,10 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+/**
+ * A helper to assist with farming.
+ *
+ */
 public class FarmHelp {
 
 	static StringBuilder b = new StringBuilder();
@@ -16,6 +20,10 @@ public class FarmHelp {
 
 	static MailUtility mailer = new MailUtility();
 
+	/**
+	 * Sleep for a given duration.
+	 * @throws BotException when errors are encountered.
+	 */
 	public static void sleep() throws BotException {
 		int start = 500;
 		int end = 1000;
@@ -38,6 +46,10 @@ public class FarmHelp {
 		} 
 	}
 
+	/**
+	 * Reset the program for the next run.
+	 * @param milliseconds - time to wait before reset
+	 */
 	public static void reset(int milliseconds) {
 		int start = milliseconds / 2;
 		int end = (int) (milliseconds * 1.5);
@@ -56,6 +68,10 @@ public class FarmHelp {
 		}
 	}
 
+	/**
+	 * Sleep for a given duration.
+	 * @param milliseconds - the number of milliseconds to sleep for.
+	 */
 	public static void sleep(int milliseconds) {
 		int start = milliseconds / 2;
 		int end = (int) (milliseconds * 1.5);
@@ -71,6 +87,11 @@ public class FarmHelp {
 	static int villCount = 0;
 	static ArrayList<Integer> vills_to_skip = new ArrayList<Integer>();
 
+	/**
+	 * Actually does the farming.
+	 * 
+	 * @throws BotException if any errors are encountered.
+	 */
 	public static void doFarming() throws BotException {
 		if (vills_to_skip.contains(villCount)) {
 			b.append("Skipping village: " + villCount + "\n");
@@ -146,6 +167,13 @@ public class FarmHelp {
 		villCount += 1;
 	}
 
+	/**
+	 * Execute the script
+	 * @param username
+	 * @param password
+	 * @param world
+	 * @throws BotException
+	 */
 	public static void execute(String username, String password, String world) throws BotException {
 		d = new FirefoxDriver();
 		try {
@@ -229,6 +257,10 @@ public class FarmHelp {
 		}
 	}
 
+	/**
+	 * Main entry point for the program.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		String gmail_address = args[0];
@@ -249,6 +281,11 @@ public class FarmHelp {
 		}
 	}
 	
+	/**
+	 * Start the helper
+	 * @param args
+	 * @throws BotException
+	 */
 	public static void startHelper(String[] args) throws BotException{
 		String gmail_address = args[0];
 		String gmail_password = args[1];
