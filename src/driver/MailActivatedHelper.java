@@ -32,7 +32,7 @@ public class MailActivatedHelper {
 			try {
 				FarmHelp.startHelper(args);
 			} catch (BotException e1) {
-				this.stop();
+				this.interrupt();
 
 				try {
 					mailer.sendMessage("Bot protection. Can't continue.");
@@ -57,6 +57,7 @@ public class MailActivatedHelper {
 
 	/**
 	 * Get the most recent message from an inbox
+	 * 
 	 * @return Message most recent message
 	 * @throws Exception
 	 */
@@ -76,8 +77,9 @@ public class MailActivatedHelper {
 		return msg;
 	}
 
-    /**
+	/**
 	 * Main entry point for mail server
+	 * 
 	 * @param args
 	 */
 	@SuppressWarnings("deprecation")

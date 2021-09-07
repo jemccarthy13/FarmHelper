@@ -22,6 +22,7 @@ public class FarmHelp {
 
 	/**
 	 * Sleep for a given duration.
+	 * 
 	 * @throws BotException when errors are encountered.
 	 */
 	public static void sleep() throws BotException {
@@ -43,11 +44,12 @@ public class FarmHelp {
 
 		} catch (NoSuchElementException | InterruptedException e) {
 
-		} 
+		}
 	}
 
 	/**
 	 * Reset the program for the next run.
+	 * 
 	 * @param milliseconds - time to wait before reset
 	 */
 	public static void reset(int milliseconds) {
@@ -70,6 +72,7 @@ public class FarmHelp {
 
 	/**
 	 * Sleep for a given duration.
+	 * 
 	 * @param milliseconds - the number of milliseconds to sleep for.
 	 */
 	public static void sleep(int milliseconds) {
@@ -115,8 +118,8 @@ public class FarmHelp {
 
 		System.out.println("Clicking A farm buttons for village " + villCount);
 		for (int page = 0; page < num_times; page++) {
-			List<WebElement> vills = d.findElementsByCssSelector(".farm_icon.farm_icon_a");
-			List<WebElement> disabledVills = d.findElementsByCssSelector(".farm_icon.farm_icon_a.farm_icon_disabled");
+			List<WebElement> vills = d.findElementsByCssSelector(".farm_icon.farm_icon_b");
+			List<WebElement> disabledVills = d.findElementsByCssSelector(".farm_icon.farm_icon_b.farm_icon_disabled");
 			vills.removeAll(disabledVills);
 
 			for (WebElement vill : vills) {
@@ -169,12 +172,15 @@ public class FarmHelp {
 
 	/**
 	 * Execute the script
+	 * 
 	 * @param username
 	 * @param password
 	 * @param world
 	 * @throws BotException
 	 */
 	public static void execute(String username, String password, String world) throws BotException {
+
+		System.setProperty("webdriver.gecko.driver", "C:\\Users\\jemcc\\OneDrive\\java libraries\\geckodriver.exe");
 		d = new FirefoxDriver();
 		try {
 			d.get("http://tribalwars.net");
@@ -186,12 +192,12 @@ public class FarmHelp {
 			x = d.findElementById("password");
 			x.sendKeys(password);
 
-			x = d.findElementById("cookie");
+			x = d.findElementById("remember-me");
 			if (x.isSelected()) {
 				x.click();
 			}
 
-			x = d.findElementByClassName("login_button");
+			x = d.findElementByClassName("btn-login");
 			x.click();
 
 			sleep(3000);
@@ -206,16 +212,17 @@ public class FarmHelp {
 					elem.click();
 					sleep();
 
-					List<WebElement> villages_edit = d.findElementsByClassName("quickedit-vn");
-					int num_villages = villages_edit.size();
-					b.append("Villages: " + num_villages + "\n");
-					sleep();
+					// List<WebElement> villages_edit = d.findElementsByClassName("quickedit-vn");
+					// int num_villages = villages_edit.size();
+					// b.append("Villages: " + num_villages + "\n");
+					// sleep();
+					int num_villages = 1;
 
-					x = d.findElement(By.cssSelector(".icon.header.village"));
-					x.click();
-					sleep();
+					// x = d.findElement(By.cssSelector(".icon.header.village"));
+					// x.click();
+					// sleep();
 
-					x = d.findElement(By.className("manager_icon"));
+					x = d.findElement(By.id("manager_icon_farm"));
 					x.click();
 					sleep();
 
@@ -240,9 +247,9 @@ public class FarmHelp {
 
 			reset(900000);
 
-		}catch (BotException b){
+		} catch (BotException b) {
 			throw b;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			try {
 				d.close();
@@ -259,16 +266,23 @@ public class FarmHelp {
 
 	/**
 	 * Main entry point for the program.
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		// String gmail_address = args[0];
+		// String gmail_password = args[1];
+		// String authorized_sender = args[2];
+		// String username = args[3];
+		// String password = args[4];
+		// String world = args[5];
 
-		String gmail_address = args[0];
-		String gmail_password = args[1];
-		String authorized_sender = args[2];
-		String username = args[3];
-		String password = args[4];
-		String world = args[5];
+		String gmail_address = "";
+		String gmail_password = "";
+		String authorized_sender = "";
+		String username = "jemccarthy13";
+		String password = "Legolas93";
+		String world = "107";
 
 		mailer.setup(gmail_address, gmail_password, authorized_sender);
 
@@ -280,24 +294,31 @@ public class FarmHelp {
 			}
 		}
 	}
-	
+
 	/**
 	 * Start the helper
+	 * 
 	 * @param args
 	 * @throws BotException
 	 */
-	public static void startHelper(String[] args) throws BotException{
-		String gmail_address = args[0];
-		String gmail_password = args[1];
-		String authorized_sender = args[2];
-		String username = args[3];
-		String password = args[4];
-		String world = args[5];
+	public static void startHelper(String[] args) throws BotException {
+		// String gmail_address = args[0];
+		// String gmail_password = args[1];
+		// String authorized_sender = args[2];
+		// String username = args[3];
+		// String password = args[4];
+		// String world = args[5];
 
+		String gmail_address = "";
+		String gmail_password = "";
+		String authorized_sender = "";
+		String username = "jemccarthy13";
+		String password = "Legolas93";
+		String world = "107";
 		mailer.setup(gmail_address, gmail_password, authorized_sender);
 
 		while (true) {
-			execute(username, password, world);	
+			execute(username, password, world);
 		}
 	}
 }
